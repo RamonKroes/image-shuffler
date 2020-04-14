@@ -6,9 +6,9 @@
 
         try{
             $servername = "localhost";
-            $dbusername = "root";
-            $dbpassword = "";
-            $dbname = "image_shuffler";
+            $dbusername = "image_user";
+            $dbpassword = "PogChamp";
+            $dbname = "image-shuffler";
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
             return $conn;
         }catch(PDOException $e)
