@@ -37,7 +37,7 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
                         <div class="col-md-3 content"><div class="inner"><?= $result['naam']; ?></div></div>
                         <div class="col-md-6 content">
                             <div class="inner">
-                                <a href="edit.php/?id=<?= $result['id']; ?>" class="button">
+                                <a href="edit.php?id=<?= $result['id']; ?>" class="button">
                                     <input type="submit" name="submit" value="Edit Post!">
                                 </a>
 
