@@ -6,9 +6,9 @@
 
         try{
             $servername = "localhost";
-            $dbusername = "image_user";
-            $dbpassword = "PogChamp";
-            $dbname = "image-shuffler";
+            $dbusername = "root";
+            $dbpassword = "";
+            $dbname = "image_shuffler";
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
             return $conn;
         }catch(PDOException $e)
@@ -29,7 +29,8 @@
             $query->execute();
             $count = $query->rowCount();
             if ($count > 0) {
-                header('location:/image-shuffler/index.php');
+                $_SESSION['create'] = 'Afbeelding is toegevoegt';
+                header('location: index.php');
             }else{
                 echo 'faal!';
             }
@@ -60,7 +61,8 @@
             $count = $query->rowCount();
 
             if ($count > 0) {
-                header('location:/image-shuffler/index.php');
+                $_SESSION['update'] = 'Afbeelding is aangepast';
+                header('location: index.php');
             } else {
                 echo 'faal!';
             }
@@ -77,7 +79,7 @@
             $count = $query->rowCount();
 
             if ($count > 0) {
-                echo 'Post verwijdert';
+                $_SESSION['delete'] = 'Afbeelding is verwijdert.';
             }
         }
     }

@@ -1,5 +1,6 @@
 <?php require('include/header.php') ?>
 <?php
+
 if (isset($_POST['deletebutton'])) {
     $id = $_POST['pid'];
     deleteImage($id);
@@ -13,44 +14,54 @@ $result = $query->fetch(PDO::FETCH_ASSOC);
 ?>
 
 
-
     <div class="container">
         <div class="row">
             <div class="col-12">
                 <div class="image-wrapper">
-                    <img id="img_placeholder" alt="<?= $result['url']; ?>">
+                    <img id="img_placeholder" alt="<?= $result['url']; ?>" class="img-fluid">
                 </div>
             </div>
         </div>
         <div class="row flex-row">
-                <?php
-                $query = $conn->prepare("SELECT * FROM image");
-                $query->execute();
+            <?php include('alert.php'); ?>
 
-                    while($result = $query->fetch(PDO::FETCH_ASSOC)){
-                        ?>
-                        <div class="col-md-3 content">
-                            <div class="inner">
-                                <?= $result['id']; ?>
-                            </div>
-                        </div>
-                        <div class="col-md-3 content"><div class="inner"><?= $result['naam']; ?></div></div>
-                        <div class="col-md-6 content">
-                            <div class="inner">
-                                <a href="edit.php?id=<?= $result['id']; ?>" class="button">
-                                    <input type="submit" name="submit" value="Edit Post!">
-                                </a>
+            <table class="table table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Naam</th>
+                        <th scope="col">Acties</th>
+                    </tr>
+                </thead>
 
-                                <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="button">
-                                    <input type="hidden" name="pid" value=<?= $result['id'] ?> >
-                                    <input type="submit" name="deletebutton" value="Delete Post!">
-                                </form>
-                            </div>
-                        </div>
 
-                        <?php
-                    }
+            <?php
+            $query = $conn->prepare("SELECT * FROM image");
+            $query->execute();
+
+            while ($result = $query->fetch(PDO::FETCH_ASSOC)) {
                 ?>
+                <tbody>
+                <tr>
+                    <th scope="row"><?= $result['id']; ?></th>
+                    <td><?= $result['naam']; ?></td>
+                    <td class="btn-group">
+                        <a href="edit.php?id=<?= $result['id']; ?>" style="margin-right:5px;">
+                            <input type="submit" name="submit"  class="btn btn-primary" value="Edit Post!">
+                        </a>
+
+                        <form method="POST" action="<?= $_SERVER['PHP_SELF'] ?>" class="button">
+                            <input type="hidden" name="pid" value="<?= $result['id'] ?>">
+                            <input type="submit" name="deletebutton" value="Delete Post!" class="btn btn-danger">
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+                <?php
+            }
+            ?>
+
+            </table>
         </div>
 
         <div class="row">

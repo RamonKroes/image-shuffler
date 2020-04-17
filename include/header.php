@@ -11,4 +11,7 @@
 </head>
 
 <body>
-<?php require('tasks/functions.php') ?>
+<?php require('tasks/functions.php');
+
+session_start();
+?>
