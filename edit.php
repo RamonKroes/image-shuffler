@@ -33,8 +33,8 @@ $query->execute(['id' => $id]);
                     <?php
                     if($row = $query->fetch()){
                     ?>
-                    <input placeholder="<?= $row['naam']; ?>" name="naam">
-                    <input placeholder="<?= $row['url']; ?>" name="url">
+                    <input value="<?= $row['naam']; ?>" name="naam">
+                    <input value="<?= $row['url']; ?>" name="url">
 
                     <input type="submit" name="update" value="Update">
                     <?php } ?>
