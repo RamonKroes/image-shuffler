@@ -6,9 +6,9 @@
 
         try{
             $servername = "localhost";
-            $dbusername = "image_user";
-            $dbpassword = "PogChamp";
-            $dbname = "image-shuffler";
+            $dbusername = "root";
+            $dbpassword = "";
+            $dbname = "image_shuffler";
             $conn = new PDO("mysql:host=$servername;dbname=$dbname", $dbusername, $dbpassword);
             return $conn;
         }catch(PDOException $e)
@@ -21,7 +21,7 @@
     function createImage(){
         global $conn;
 
-        if (isset($_POST['naam']) && isset($_POST['url'])) {
+        if (!empty($_POST['naam']) && isset($_POST['url'])) {
             $query = $conn->prepare("INSERT INTO image (naam, url) VALUES (:naam, :url)");
 
             $query->bindParam(':naam', $_POST['naam'],PDO::PARAM_STR);
@@ -32,8 +32,10 @@
                 $_SESSION['create'] = 'Afbeelding is toegevoegt';
                 header('location: index.php');
             }else{
-                echo 'faal!';
+                $_SESSION['failure'] = 'De velden moeten gevuld zijn';
             }
+        }else{
+            $_SESSION['failure'] = 'De velden moeten gevuld zijn.';
         }
     }
 
@@ -65,7 +67,7 @@
                 $_SESSION['update'] = 'Afbeelding is aangepast';
                 header('location: index.php');
             } else {
-                echo 'faal!';
+                $_SESSION['failure'] = 'De velden moeten een nieuwe waarde krijgen';
             }
         } else{
             $_SESSION['failure'] = 'De velden moeten gevuld zijn.';

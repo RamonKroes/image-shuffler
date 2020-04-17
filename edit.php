@@ -40,7 +40,7 @@ $query->execute(['id' => $id]);
                     <?php } ?>
                 </form>
 
-
+                <a href="index.php">Cancel</a>
             </div>
         </div>
     </div>
