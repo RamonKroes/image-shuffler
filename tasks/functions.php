@@ -51,7 +51,7 @@
     function updateImage($id){
         global $conn;
 
-        if(isset($_POST['update'])) {
+        if(isset($_POST['update']) && !empty($_POST['naam'] && $_POST['url'])) {
             $query = $conn->prepare("UPDATE image SET naam=:naam, url=:url WHERE id =:id");
             $query->bindParam(':naam', $_POST['naam'], PDO::PARAM_STR);
             $query->bindParam(':url', $_POST['url'], PDO::PARAM_STR);
@@ -61,11 +61,14 @@
             $count = $query->rowCount();
 
             if ($count > 0) {
+
                 $_SESSION['update'] = 'Afbeelding is aangepast';
                 header('location: index.php');
             } else {
                 echo 'faal!';
             }
+        } else{
+            $_SESSION['failure'] = 'De velden moeten gevuld zijn.';
         }
     }
 

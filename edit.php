@@ -15,6 +15,18 @@ $query->execute(['id' => $id]);
 
     <div class="container">
         <div class="row">
+
+            <div class="col-12">
+                <?php
+                if (isset($_SESSION['failure'])) {
+                    ?>
+                    <div class="alert alert-danger"><?php print $_SESSION['failure']; ?></div>
+                    <?php
+                }
+                unset($_SESSION['failure']);
+                ?>
+            </div>
+
             <div class="col">
                 <h1>Pas foto aan?</h1>
                 <form method="post">
